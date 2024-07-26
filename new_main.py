@@ -34,10 +34,16 @@ df = pd.DataFrame(columns=[
 def process_image(image_path):
     image = Image.open(image_path) 
     contrast = np.std(image)
+    
+    #calculating vegetation and terrain area
     Vegetation_area, terrain_area = segmentation(image_path)
     results = model(image_path)
     classes = results#[0].boxes.cls.tolist()
+
+    #calculating the bike and bench confidences
     out_dict, bench_conf, bike_conf = count_yolo_classes(classes, class_mapping, [1, 13])
+
+    #calculating bike rack confidence
     confidence = process_single(image_path)
     
     bench_count = out_dict.get('bench', 0)
