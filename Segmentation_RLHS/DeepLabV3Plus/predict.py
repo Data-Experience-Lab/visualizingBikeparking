@@ -80,7 +80,7 @@ def get_argparser():
     parser.add_argument("--crop_size", type=int, default=513)
 
     
-    parser.add_argument("--ckpt", default='D:\\RLHS-MITACS\\Segmentation_RLHS\\DeepLabV3Plus\\checkpoints\\best_deeplabv3plus_mobilenet_cityscapes_os16.pth',
+    parser.add_argument("--ckpt", default='checkpoints\\best_deeplabv3plus_mobilenet_cityscapes_os16.pth',
                         help="resume from checkpoint")
     parser.add_argument("--gpu_id", type=str, default='0',
                         help="GPU ID")
