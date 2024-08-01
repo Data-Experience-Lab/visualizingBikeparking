@@ -2,6 +2,7 @@ import os
 import sys
 import numpy as np
 import cv2
+import argparse
 from ultralytics import YOLO
 from PIL import Image
 from collections import defaultdict
@@ -34,16 +35,10 @@ df = pd.DataFrame(columns=[
 def process_image(image_path):
     image = Image.open(image_path) 
     contrast = np.std(image)
-    
-    #calculating vegetation and terrain area
     Vegetation_area, terrain_area = segmentation(image_path)
     results = model(image_path)
     classes = results#[0].boxes.cls.tolist()
-
-    #calculating the bike and bench confidences
     out_dict, bench_conf, bike_conf = count_yolo_classes(classes, class_mapping, [1, 13])
-
-    #calculating bike rack confidence
     confidence = process_single(image_path)
     
     bench_count = out_dict.get('bench', 0)
@@ -54,16 +49,17 @@ def process_image(image_path):
 
 # Process each image and add a row to the DataFrame
 
-# Specify theh folder path here
 image_dir = "D:\\project\\Data\\final_data"
 images = os.listdir(image_dir)
 images = sorted(images, key=lambda x: int(os.path.splitext(x)[0]))
 
-all_rows = []
-for image in images:
-    image_path = os.path.join(image_dir, image)
-    contrast, Vegetation_area, terrain_area, bench_conf, bicycle_count,bike_conf, confidence = process_image(image_path)
-    row = {
+
+def main(image_dir):
+    all_rows = []
+    for image in images:
+        image_path = os.path.join(image_dir, image)
+        contrast, Vegetation_area, terrain_area, bench_conf, bicycle_count,bike_conf, confidence = process_image(image_path)
+        row = {
         "image_id": image,
         "contrast": contrast,
         "Vegetation_area": Vegetation_area,
@@ -73,11 +69,17 @@ for image in images:
         "bicycle_conf": bike_conf,
         "confidence": confidence
     }
-    all_rows.append(row)
+        all_rows.append(row)
     
-df = pd.concat([df, pd.DataFrame(all_rows)], ignore_index=True)
+    df = pd.concat([df, pd.DataFrame(all_rows)], ignore_index=True)
 
 # Display the DataFrame
-df.to_csv("output_4.csv", index=False)
+    df.to_csv("output_4_0.csv", index=False)
         
 # pipeline("D:\\RLHS-MITACS\\Data\\final_data")
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", type=str,default = image_dir,
+                        help="path to a single image or image directory")
+    args = parser.parse_args()
+    main(args.input)
