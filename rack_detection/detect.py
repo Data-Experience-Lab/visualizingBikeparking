@@ -7,8 +7,8 @@ import inference
 import supervision as sv
 
 # Loading the custom model
-model1 = YOLO('D:/RLHS-MITACS/rack_detection/models/best.pt')
-model3 = YOLO('D:/RLHS-MITACS/rack_detection/class-models/best_classify.pt')
+model1 = YOLO('rack_detection/models/best.pt')
+model3 = YOLO('rack_detection/class-models/best_classify.pt')
 model2 = inference.get_model(model_id="bike-rack-unayc/2", api_key="ZVyfCUbZT6qdSHQPyazV")
 model4 = inference.get_model(model_id="classify-racks/1", api_key="ZVyfCUbZT6qdSHQPyazV")
 
