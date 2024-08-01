@@ -54,6 +54,8 @@ def process_image(image_path):
 
 # Process each image and add a row to the DataFrame
 
+# Specify theh folder path here
+
 image_dir = "D:\\project\\Data\\final_data"
 images = os.listdir(image_dir)
 images = sorted(images, key=lambda x: int(os.path.splitext(x)[0]))
