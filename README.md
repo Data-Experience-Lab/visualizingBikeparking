@@ -34,6 +34,9 @@ https://drive.google.com/file/d/1n_SGWTwmAAsDKt38NUZSJyS-H5Br1_CH/view?usp=shari
 https://drive.google.com/file/d/1Mgg1kdXUisnDs5mkkK8BrS4BaMycNges/view?usp=sharing
 ```
 ## Set the image Path
+```
+python new_main.py --input D:\project\Data\final_data
+```
 ## Run the pipeline
 ```
 python new_main.py
