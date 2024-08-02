@@ -163,9 +163,6 @@ def process_single(image_path, model = "roboflow_class"):
 
     
     
-print(process_single("D:\\RLHS-MITACS\\Data\\final_data\\11.png"))
-    
-    
 # print(results[0].boxes.cls)
 
 # for i,result in enumerate(results):
