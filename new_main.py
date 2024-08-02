@@ -22,12 +22,6 @@ model = YOLO('yolov8x.pt')
 import pandas as pd
 import numpy as np
 
-# Initialize an empty DataFrame with the required columns
-df = pd.DataFrame(columns=[
-    "image_id", "contrast", "Vegetation_area", "terrain_area", 
-    "bench_conf", "bicycle_count", "confidence"
-])
-
 # Example data
 
 
@@ -49,12 +43,13 @@ def process_image(image_path):
 
 # Process each image and add a row to the DataFrame
 
-image_dir = "D:\\project\\Data\\final_data"
-images = os.listdir(image_dir)
-images = sorted(images, key=lambda x: int(os.path.splitext(x)[0]))
-
 
 def main(image_dir):
+    df = pd.DataFrame(columns=[
+    "image_id", "contrast", "Vegetation_area", "terrain_area", 
+    "bench_conf", "bicycle_count", "confidence"])
+    images = os.listdir(image_dir)
+    images = sorted(images, key=lambda x: int(os.path.splitext(x)[0]))
     all_rows = []
     for image in images:
         image_path = os.path.join(image_dir, image)
@@ -79,7 +74,7 @@ def main(image_dir):
 # pipeline("D:\\RLHS-MITACS\\Data\\final_data")
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=str,default = image_dir,
+    parser.add_argument("--input", type=str,
                         help="path to a single image or image directory")
     args = parser.parse_args()
     main(args.input)
